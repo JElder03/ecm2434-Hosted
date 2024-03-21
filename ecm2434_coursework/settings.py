@@ -32,7 +32,9 @@ SECRET_KEY = "django-insecure-h4n7o@+n3tss1r(flk*x&19wi1=b8i6am!#e+f5@y%=d2b!8v9
 DEBUG = True
 
 #ALLOWED_HOSTS = [] #for local hosting
-ALLOWED_HOSTS = [".awsapprunner.com"] #for web hosting
+ALLOWED_HOSTS = [".awsapprunner.com", "*.awsapprunner.com"] #for web hosting
+CSRF_TRUSTED_ORIGINS = ['https://*.awsapprunner.com','https://*.127.0.0.1']
+
 
 # Email settings for password reset
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
