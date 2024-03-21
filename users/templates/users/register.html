@@ -1,0 +1,46 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Foodle | Register</title>
+    <link rel="stylesheet" href="{% static '/css/login_styles.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h3>Register here</h3>
+        <hr>
+        <div style="text-align: center;">
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div>
+                    {% if field.label == 'Terms confirmed' %}
+                    <p>I agree to the <a href="{% url 'terms' %}">terms and conditions</a>: {{ field }}</p>
+
+                    {% else %}
+                    <p>{{ field.label }}: <br> {{ field }}</p>
+
+                    {% endif %}
+                    {% for error in field.errors %}
+                    <small>{{ error }}</small>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                <button type="submit">Register</button>
+            </form>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;"><a href="{% url 'login' %}">Return
+                    to login</a></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!-- Author: Victor Smith, Jamie Elder -->
+<!-- Styling: Victor Smith -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <title>Foodle | View Recipes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            width: 80%; 
+            margin-left: auto; 
+            margin-right: auto; 
+            text-align: center; 
+            opacity: 1; 
+            background-color: #ffffff; 
+            border-radius: 10px;
+        }
+         
+        table {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+
+        nav {
+            background-color: #28a745;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #949292;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div>
+                <a href="{% url 'foodle:home' %}">Back</a>
+            </div>
+        </div>
+    </nav>
+    <h1>All Recipes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Prep (mins)</th>
+                <th>Serves</th>
+                <th>Allergens</th>
+                <th>User</th>
+                <th>Env. Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td><a href="{% url 'recipes:view_recipe' recipe_id=recipe.pk %}">{{ recipe.recipe_title }}</a></td>
+                <td style="text-align: center;">{{ recipe.prep_time }}</td>
+                <td style="text-align: center;">{{ recipe.serves_num }}</td>
+                <!-- Display allergens or leave column empty -->
+                <td>{% if recipe.allergens == None %}
+
+                    {% else %}
+                    {{ recipe.allergens }}
+                    {% endif %}
+                </td>
+                <!-- Display user or replace with "User Deleted" if user does not exist -->
+                <td>
+                    {% if recipe.user == None %}
+                    User Deleted
+                    {% else %}
+                    {{ recipe.user.username }}
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">{{ recipe.sulphates_per_portion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

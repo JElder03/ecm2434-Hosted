@@ -1,0 +1,32 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/login_styles.css' %}">
+    <title>Foodle | Login</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h3>Login</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <p>{{ field.label }}: <br> {{ field }}</p>
+            {% endfor %}
+            <div style="text-align: center;">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div style="text-align: center; margin-bottom: 5px; margin-top: 15px;"><a style="margin-bottom: 5px;" href="{% url 'register' %}">Signup here</a><br><a href="{% url 'password_reset' %}">Forgot password</a></div>
+    </div>
+
+</body>
+
+</html>

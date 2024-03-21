@@ -1,0 +1,112 @@
+<!-- Author: Victor Smith -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!-- Admin page for generating QR codes for joining a grup -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<head>
+    <title>Admin | Generate QR Codes</title>
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            opacity: 1;
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
+
+        button {
+            width: 80%;
+            margin-left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        nav {
+            background-color: #28a745;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        table {
+            margin-top: 10px;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 90%;
+            margin-left: 50%;
+            -ms-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+            margin-bottom: 20px;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #949292;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<nav>
+    <div>
+        <div>
+            <a href="{% url 'foodle:createGroup' %}">Create Group</a>
+        </div>
+    </div>
+</nav>
+<h1>ALL GROUPS</h1>
+<hr>
+<table>
+    <tr>
+        <th style="text-align: center;">Group Name</th>
+        <th style="text-align: center;">Create Qr code</th>
+    </tr>
+    {% for item in all %}
+    <tr>
+        <th style="text-align: center;">{{ item.name }}</th>
+        <th>
+            <form method="POST" action="{% url 'foodle:generateQrCode' %}">
+                {% csrf_token %}
+                <input name="group_name" value="{{ item.name }}" style="width: 0px; visibility: hidden;">
+
+                <button type="submit" class="btn btn-primary">QR code</button>
+            </form>
+        </th>
+    </tr>
+    {% endfor %}
+
+    {% endblock %}

@@ -1,0 +1,87 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!-- Page for creating cooking events by selecting a recipe and date -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <title>Foodle | Create Event</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #28a745;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        nav a:hover {
+            color: #2980b9;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div>
+                <a href="{% url 'foodle:events' %}" style="color: #ffffff;">Back</a>
+                <a href="{% url 'foodle:home' %}" style="color: #ffffff;">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <p style="text-align: center; width: 100%;">{{ field.label }}: <br> {{ field }}</p>
+        {% endfor %}
+        <button type="submit" style="width: 100%;">Create Event</button>
+    </form>
+</body>
+
+</html>

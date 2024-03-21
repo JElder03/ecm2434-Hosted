@@ -1,0 +1,104 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!-- Page for viewing group cooking events -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodle | Cooking Events</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        table {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ffffff;
+            opacity: 1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #149a57;
+            color: #fff;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+            opacity: 0.95;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #949292;
+            opacity: 0.95;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: #28a745;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        nav a:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div>
+                <a href="{% url 'foodle:home' %}" style="color: #ffffff;">Back</a>
+                <a href="{% url 'foodle:create_event' %}" style="color: #ffffff;">Create an Event</a>
+            </div>
+        </div>
+    </nav>
+
+    {% if cooking_events %}
+    <table>
+        <tr>
+            <th style="text-align: center;">Cook</th>
+            <th style="text-align: center;">Recipe</th>
+            <th style="text-align: center;">Date</th>
+            <th style="text-align: center;">Env. Score</th>
+        </tr>
+        {% for event in cooking_events %}
+        <tr>
+            <td>{{event.user.username}}</td>
+            <td><a href="{% url 'recipes:view_recipe' event.recipe.recipe_id %}">{{event.recipe.recipe_title}}</a></td>
+            <td>{{event.date_time}}</td>
+            <td style="text-align: center;">{{event.score}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- if cooking events is false then group has no cooking events -->
+    {% else %}
+    <p>Your group currently has no cooking events</p>
+    {% endif %}
+</body>
+
+</html>

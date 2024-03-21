@@ -1,0 +1,50 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith -->
+<!-- Redirect page for users without a group trying to use group only features -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodle | No Group</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #28a745;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #3498db;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div>
+                <a href="{% url 'foodle:home' %}" style="color: #ffffff;">Back</a>
+            </div>
+        </div>
+    </nav>
+    <div style="background-color: #fff; width: 80%; text-align: center; margin-top: 10%; border-radius: 10px; margin-left: 50%; -ms-transform: translate(-50%, 0%); transform: translate(-50%, 0%); padding: 20px;">
+        <h1>You must be part of a group to access this page. Please join a group by scanning the QR code in your accomodation kitchen.</h1>
+    </div>
+</body>
+
+</html>

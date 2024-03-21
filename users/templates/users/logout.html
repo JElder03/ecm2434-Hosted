@@ -1,0 +1,58 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodle | Log Out</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/login_styles.css' %}">
+    <style>
+        .alert {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #52abe7;
+        }
+
+        a:hover {
+            color: #1585cf;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        {% block content %}
+        <br>
+        <div class="alert alert-success" role="alert">
+            <h2>Logged out!</h2>
+        </div>
+
+        <a href="{% url 'login' %}"><h3>Login again?</h3></a>
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!-- Welcome page with links to log in a sign up -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodle | Welcome</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/login_styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .alert {
+            background-color: #c0fcc2;
+            opacity: 0.9;
+            color: #000000;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="alert" role="alert">
+        <h3>Welcome!</h3>
+        <a href="{% url 'register' %}">Signup</a>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</body>
+
+</html>

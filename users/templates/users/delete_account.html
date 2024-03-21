@@ -1,0 +1,17 @@
+<!-- Author: Jamie Elder -->
+{% load static %}
+<head>
+    <title>Foodle | Delete Account</title>
+<link rel="stylesheet" href="{% static '/css/login_styles.css' %}">
+</head>
+
+<form method="POST" style="background-color: #ffffff; border-radius: 10px; width: 80%; margin-left: 50%; -ms-transform: translate(-50%, 0%); transform: translate(-50%, 0%);">
+    <a class="btn btn-primary-custom" style="width: 100%; text-align:center;" href="{% url 'foodle:home' %}">Cancel</a>
+    {% csrf_token %}
+            <p style="text-align: center;">Are you sure you want to delete your account?  This will permanently delete your
+               profile and username, but recipes you have created will still exists.</p>
+            {{ form }}
+    <div class="form-group">
+        <button class="btn btn-danger" type="submit" style="background-color: ff0000; width: 80%; margin-left: 50%; -ms-transform: translate(-50%, 0%); transform: translate(-50%, 0%); margin-bottom: 20px;">Delete Account</button>
+    </div>
+</form>

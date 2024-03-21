@@ -1,0 +1,67 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodle | Leave Group</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" style="width: 80%; margin-left: 50%; -ms-transform: translate(-50%, 70%); transform: translate(-50%, 70%);">
+        <h2 style="text-align: center;">you are already a member of a group</h2>
+        <form action="#" method="get">
+            <button type="submit" class="btn" value="Click" name="leave_group_btn" style="width: 80%; margin-top: 10px ; margin-left: 50%; -ms-transform: translate(-50%, 0%); transform: translate(-50%, 0%);">
+                Leave your group and join the new one?
+            </button>
+        </form>
+        <p style="text-align: center;"><a href="{% url 'foodle:home' %}">Home</a></p>
+    </div>
+
+</body>
+
+</html>

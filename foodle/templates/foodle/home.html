@@ -1,0 +1,66 @@
+<!-- Author: Jamie Elder -->
+<!-- Styling: Victor Smith, Dylan Carter -->
+<!-- Home page with welcome message and links to the rest of the Foodle app -->
+
+{% extends 'foodle/index.html' %}
+
+{% block content %}
+{% load static %}
+
+<head>
+    <title>Foodle | Home</title>
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <style>
+        .alert {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            position: fixed; 
+            top: 82%; 
+            width: 100%;
+        }
+
+        button {
+            width: 90%; 
+            margin-left: 50%; 
+            -ms-transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%);
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #28a745;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<!-- Display welcome message, username, and combined points -->
+<div class="alert" role="alert">
+    <h3>Welcome to Foodle {{ user.username }}!</h3>
+    <h3>Your current score is {{ user.userprofile.foodle_score|add:user.userprofile.env_score}}!</h3>
+</div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    <form method="get" action="{% url 'delete_user' %}" style="top: 90%;">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #ff0000;">Delete Account</button>
+    </form>
+{% endblock content %}

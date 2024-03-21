@@ -1,0 +1,189 @@
+<!-- Author: Victor Smith, Jamie Elder -->
+<!-- Styling: Victor Smith -->
+{% extends 'recipes/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<head>
+    <title>Foodle | Create Recipe</title>
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            opacity: 0.95;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-select,
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #button-add {
+            border: 1px solid #28a745;
+            color: #28a745;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #button-add:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        hr {
+            margin-top: 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <!-- Create hidden form inputs for ingredients and quantities -->
+        {{ form.ingredients }}
+        {{ form.quantities }}
+        <div class="form-group">
+            {{ form.recipe_title.label }} {{ form.recipe_title }}
+        </div>
+        <br>
+        <div class="form-group">
+            {{ form.prep_time.label }} {{ form.prep_time }}
+        </div>
+        <br>
+        <div class="form-group">
+            {{ form.serves_num.label }} {{ form.serves_num }}
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <select class="form-select" id="Ingredient-Selector">
+                    <option selected>Other</option>
+
+                    <!-- add all ingredients in  database to a dropdown -->
+                    {% if ingredient_ratings %}
+                    {% for rating in ingredient_ratings %}
+                    <option value="{{ rating.ingredient }}">{{ rating.ingredient }}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+            <!-- input for ingredients not in database -->
+            <div class="form-group col-md-3">
+                <input id="Other-Ingredient-Input" type="text" class="form-control" placeholder="Other Ingredient"
+                    aria-label="Other Ingredient">
+            </div>
+            <div class="form-group col-md-3">
+                <input id="Ingredient_Amount" type="text" class="form-control" placeholder="Quantity (g)"
+                    aria-label="Quantity (g)">
+            </div>
+            <!-- Button for moving user inputted ingredients to hidden ingredient/quantity inputs -->
+            <div class="form-group col-md-3">
+                <div id="button-add" class="btn btn-outline-success"
+                    style="margin-left: 50%; transform: translateX(-50%); width: 80%;">Add Ingredient</div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            {{ form.preparation.label }} {{ form.preparation }}
+        </div>
+        <br>
+
+        <div id="Ingredient-container">
+        </div>
+
+        <button type="submit" class="btn btn-success"
+            style="margin-left: 50%; transform: translateX(-50%); width: 80%;">Upload Recipe</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("button-add").addEventListener("click", add_ingredient);
+    }
+
+    function add_ingredient() {
+        const IngredientSelector = document.getElementById("Ingredient-Selector");
+        const IngredientAmount = document.getElementById("Ingredient_Amount");
+
+        // check quantity is a positive integer
+        if (!checkString(IngredientAmount.value)) {
+            return;
+        } else {
+            const newIngredient = document.createElement("div");
+
+            // if user has selected other as the dropdown option, use their text input as the ingredient
+            if (IngredientSelector.options[IngredientSelector.selectedIndex].innerHTML == "Other") {
+                if (!document.getElementById("Other-Ingredient-Input").value) {
+                    return;
+                }
+                newIngredient.innerText = document.getElementById("Other-Ingredient-Input").value + ' ' + "(" + IngredientAmount.value + "g)";
+
+                if (document.getElementById('id_ingredients').value != '') {
+                    document.getElementById('id_ingredients').value += ',';
+                }
+                // add other ingredient to hidden input
+                document.getElementById('id_ingredients').value += document.getElementById("Other-Ingredient-Input").value;
+
+            } else { // else use ingredient user has selected from ingredient dropdown menu
+                newIngredient.innerText = IngredientSelector.options[IngredientSelector.selectedIndex].innerHTML + ' ' + "(" + IngredientAmount.value + "g)";
+
+                if (document.getElementById('id_ingredients').value != '') {
+                    document.getElementById('id_ingredients').value += ',';
+                }
+                document.getElementById('id_ingredients').value += IngredientSelector.options[IngredientSelector.selectedIndex].innerHTML;
+            }
+
+            if (document.getElementById('id_quantities').value != '') {
+                document.getElementById('id_quantities').value += ',';
+            }
+            // add ingredient to hidden form input
+            document.getElementById('id_quantities').value += IngredientAmount.value;
+
+            // add other ingredient to user list of all added ingredients
+            document.getElementById("Ingredient-container").appendChild(newIngredient);
+        }
+    }
+
+    function checkString(string) {
+        /**
+         * Checks a strings is numerical only
+         * 
+         * @param string: The string to be tested
+         * @return True if string is numerical only, false otherwise
+         * */
+        return /^[0-9]*$/.test(string);
+    }
+</script>
+{% endblock %}

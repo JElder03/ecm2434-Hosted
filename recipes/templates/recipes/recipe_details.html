@@ -1,0 +1,72 @@
+<!-- Author: Jamie Elder, Victor Smith -->
+<!-- Styling: Victor Smith -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/general.css' %}">
+    <title>Foodle | View Recipe</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #28a745;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        h1,p {
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <div>
+                <a href="{% url 'recipes:view_all_recipes' %}">Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <h1 style="margin-top: 50px;">{{ recipe.recipe_title }}</h1>
+    <p>Preparation: {{ recipe.preparation|linebreaksbr }}</p>
+    <p>Prep Time: {{ recipe.prep_time }}</p>
+    <p>Serves: {{ recipe.serves_num }}</p>
+    <p>User:
+        <!-- Display "User Deleted" if user no linger exists -->
+        {% if recipe.user == None %}
+        User Deleted
+        {% else %}
+        {{ recipe.user.username }}
+        {% endif %}</p>
+    <p>Ingredients: {{ recipe.recipe_ingredients }}</p>
+    <p>Allergens: {{ recipe.allergens }}</p>
+    <p>Sulphates Per Portion: {{ recipe.sulphates_per_portion }}</p>
+</body>
+
+</html>
