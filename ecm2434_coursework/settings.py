@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-h4n7o@+n3tss1r(flk*x&19wi1=b8i6am!#e+f5@y%=d2b!8v9"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #ALLOWED_HOSTS = [] #for local hosting
 ALLOWED_HOSTS = [".awsapprunner.com", "*.awsapprunner.com"] #for web hosting
@@ -156,7 +156,7 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": 'django.contrib.staticfiles.storage.StaticFilesStorage',
     },
 }
 
